@@ -11,4 +11,12 @@
     <PackageVersion Include="NUnit" Version="4.0.1" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <RevisionVersion>0</RevisionVersion>
+    
+    <AssemblyVersion>$(Version).$(RevisionVersion)</AssemblyVersion>
+    <FileVersion>$(Version).$(RevisionVersion)</FileVersion>
+  </PropertyGroup>
 </Project>
