@@ -6,18 +6,19 @@
     <PackageVersion Include="AutoFixture" Version="[4.18.1,5)" />
     <PackageVersion Include="AutoFixture.AutoMoq" Version="[4.18.1,5)" />
     <PackageVersion Include="FluentAssertions" Version="[6.12.0,7)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="[8.0.0,9)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="[8.0.1,9)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[8.0.0,9)" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageVersion Include="Moq" Version="[4.20.70,5)" />
     <PackageVersion Include="NUnit" Version="[4.0.1,5)" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
-
   <PropertyGroup>
     <Authors>dzaba1</Authors>
     <RepositoryUrl>https://github.com/dzaba1/Dzaba.Utils</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
-
   <Target Name="UseExplicitPackageVersions" BeforeTargets="GenerateNuspec">
     <ItemGroup>
       <_ProjectReferenceWithExplicitPackageVersion Include="@(ProjectReference->'%(FullPath)')" Condition="'%(ProjectReference.PackageVersion)' != ''" />
