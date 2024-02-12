@@ -2,6 +2,8 @@
 using FluentAssertions;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dzaba.CmdTemplate.Utils.Tests;
 
@@ -19,7 +21,7 @@ public class RequireTests
 
     [TestCase(null)]
     [TestCase("")]
-    public void NotEmpty_WhenEmpty_ThenException(string value)
+    public void NotEmpty_WhenEmptyString_ThenException(string value)
     {
         var name = "Test";
 
@@ -35,6 +37,26 @@ public class RequireTests
         var name = "Test";
 
         this.Invoking(s => Require.NotWhiteSpace(value, name))
+            .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
+    }
+
+    [Test]
+    public void NotEmpty_WhenNullCollection_ThenException()
+    {
+        var name = "Test";
+        IEnumerable<object> col = null;
+
+        this.Invoking(s => Require.NotEmpty(col, name))
+            .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
+    }
+
+    [Test]
+    public void NotEmpty_WhenEmptyCollection_ThenException()
+    {
+        var name = "Test";
+        IEnumerable<object> col = Enumerable.Empty<object>();
+
+        this.Invoking(s => Require.NotEmpty(col, name))
             .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
     }
 }
