@@ -5,6 +5,7 @@
     <LangVersion>latest</LangVersion>
     <Description>Utilities and extensions</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

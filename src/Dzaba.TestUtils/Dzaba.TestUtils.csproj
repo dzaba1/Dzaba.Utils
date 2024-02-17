@@ -5,6 +5,7 @@
     <LangVersion>latest</LangVersion>
     <Description>Utilities for unit and integration tests.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
