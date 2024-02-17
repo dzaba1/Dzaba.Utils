@@ -36,7 +36,7 @@ public static class Require
 
         if (string.IsNullOrEmpty(str))
         {
-            throw new ArgumentException(argumentName);
+            throw new ArgumentException($"Argument {argumentName} is empty.", argumentName);
         }
     }
 
@@ -53,7 +53,7 @@ public static class Require
 
         if (!col.Any())
         {
-            throw new ArgumentNullException(argumentName);
+            throw new ArgumentException($"Argument {argumentName} is empty.", argumentName);
         }
     }
 
@@ -70,7 +70,7 @@ public static class Require
 
         if (string.IsNullOrWhiteSpace(str))
         {
-            throw new ArgumentException(argumentName);
+            throw new ArgumentException($"Argument {argumentName} is empty or white space.", argumentName);
         }
     }
 }

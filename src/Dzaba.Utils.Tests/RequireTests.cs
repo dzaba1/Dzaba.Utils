@@ -19,17 +19,33 @@ public class RequireTests
             .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
     }
 
-    [TestCase(null)]
-    [TestCase("")]
-    public void NotEmpty_WhenEmptyString_ThenException(string value)
+    [Test]
+    public void NotEmpty_WhenNullString_ThenException()
     {
         var name = "Test";
 
-        this.Invoking(s => Require.NotEmpty(value, name))
+        this.Invoking(s => Require.NotEmpty(null, name))
             .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
     }
 
-    [TestCase(null)]
+    [Test]
+    public void NotEmpty_WhenEmptyString_ThenException()
+    {
+        var name = "Test";
+
+        this.Invoking(s => Require.NotEmpty(string.Empty, name))
+            .Should().Throw<ArgumentException>().Where(e => e.ParamName == name);
+    }
+
+    [Test]
+    public void NotWhiteSpace_WhenNull_ThenException()
+    {
+        var name = "Test";
+
+        this.Invoking(s => Require.NotWhiteSpace(null, name))
+            .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
+    }
+
     [TestCase("")]
     [TestCase("   ")]
     public void NotWhiteSpace_WhenWhiteSpace_ThenException(string value)
@@ -37,7 +53,7 @@ public class RequireTests
         var name = "Test";
 
         this.Invoking(s => Require.NotWhiteSpace(value, name))
-            .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
+            .Should().Throw<ArgumentException>().Where(e => e.ParamName == name);
     }
 
     [Test]
@@ -57,6 +73,6 @@ public class RequireTests
         IEnumerable<object> col = Enumerable.Empty<object>();
 
         this.Invoking(s => Require.NotEmpty(col, name))
-            .Should().Throw<ArgumentNullException>().Where(e => e.ParamName == name);
+            .Should().Throw<ArgumentException>().Where(e => e.ParamName == name);
     }
 }
