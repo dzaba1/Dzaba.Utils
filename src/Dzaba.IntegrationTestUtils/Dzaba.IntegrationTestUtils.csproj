@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<Description>Utilities for integration tests.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+	  <PackageReference Include="Microsoft.Extensions.Logging" />
+	  <PackageReference Include="Serilog" />
+	  <PackageReference Include="Serilog.Enrichers.Thread" />
+	  <PackageReference Include="Serilog.Extensions.Logging" />
+	  <PackageReference Include="Serilog.Sinks.Console" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Dzaba.TestUtils\Dzaba.TestUtils.csproj" PackageVersion="[2.0,3.0)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+</Project>

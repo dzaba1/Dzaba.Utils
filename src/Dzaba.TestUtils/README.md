@@ -1,6 +1,6 @@
 # Dzaba.TestUtils
 
-Utilities for unit and integration tests.
+Utilities for unit tests.
 
 ## Usage
 

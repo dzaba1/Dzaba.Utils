@@ -18,6 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Dzaba.IntegrationTestUtils\Dzaba.IntegrationTestUtils.csproj" />
 	  <ProjectReference Include="..\Dzaba.TestUtils\Dzaba.TestUtils.csproj" />
 	</ItemGroup>
 
