@@ -2,10 +2,6 @@
 using Moq;
 using System;
 
-#if !NET10_0_OR_GREATER
-using Dzaba.Utils;
-#endif
-
 namespace Dzaba.TestUtils;
 
 /// <summary>
@@ -22,11 +18,7 @@ public static class TestExtensions
     public static Mock<T> FreezeMock<T>(this IFixture fixture)
         where T : class
     {
-#if NET10_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(fixture);
-#else
-        Require.NotNull(fixture, nameof(fixture));
-#endif
 
         return fixture.Freeze<Mock<T>>();
     }

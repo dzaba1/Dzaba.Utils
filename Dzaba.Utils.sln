@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dzaba.Utils.Configuration",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dzaba.Utils.Configuration.Tests", "src\Dzaba.Utils.Configuration.Tests\Dzaba.Utils.Configuration.Tests.csproj", "{3BBCE7E1-9E0D-4134-993C-1E2EC493DDE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dzaba.TestUtils.Tests", "src\Dzaba.TestUtils.Tests\Dzaba.TestUtils.Tests.csproj", "{021D2740-3A49-4D14-AE46-5ABDE7FEE1DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{3BBCE7E1-9E0D-4134-993C-1E2EC493DDE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BBCE7E1-9E0D-4134-993C-1E2EC493DDE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BBCE7E1-9E0D-4134-993C-1E2EC493DDE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{021D2740-3A49-4D14-AE46-5ABDE7FEE1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021D2740-3A49-4D14-AE46-5ABDE7FEE1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021D2740-3A49-4D14-AE46-5ABDE7FEE1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021D2740-3A49-4D14-AE46-5ABDE7FEE1DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
