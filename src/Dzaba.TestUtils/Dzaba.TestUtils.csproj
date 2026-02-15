@@ -15,9 +15,9 @@
     <PackageReference Include="Moq" />
     <PackageReference Include="NUnit" />
   </ItemGroup>
-	
+
   <ItemGroup>
-    <None Update="README.md">
+    <None Include="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
