@@ -23,8 +23,19 @@ public static class EmbeddedFile
     /// <exception cref="FileNotFoundException">Thrown if a resource with the specified name cannot be found in the provided assembly.</exception>
     public static Stream GetResourceStream(string file, Assembly assembly)
     {
+#if NET8_0_OR_GREATER
         ArgumentException.ThrowIfNullOrWhiteSpace(file);
         ArgumentNullException.ThrowIfNull(assembly);
+#else
+        if (string.IsNullOrWhiteSpace(file))
+        {
+            throw new ArgumentException("Value cannot be null, empty, or consist only of white-space characters.", nameof(file));
+        }
+        if (assembly == null)
+        {
+            throw new ArgumentNullException(nameof(assembly));
+        }
+#endif
 
         var assemblyName = assembly.GetName().Name;
         var formattedFile = file.Replace(Path.DirectorySeparatorChar, '.').Replace(Path.AltDirectorySeparatorChar, '.');
@@ -63,7 +74,14 @@ public static class EmbeddedFile
     /// <returns>A task that represents the asynchronous copy operation.</returns>
     public static async Task CopyToAsync(string file, Assembly assembly, Stream target)
     {
+#if NET8_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(target);
+#else
+        if (target == null)
+        {
+            throw new ArgumentNullException(nameof(target));
+        }
+#endif
 
         using var stream = GetResourceStream(file, assembly);
         await stream.CopyToAsync(target).ConfigureAwait(false);
@@ -81,7 +99,14 @@ public static class EmbeddedFile
     /// <returns>A task that represents the asynchronous copy operation.</returns>
     public static async Task CopyToAsync(string file, Assembly assembly, string targetFile)
     {
+#if NET8_0_OR_GREATER
         ArgumentException.ThrowIfNullOrWhiteSpace(targetFile);
+#else
+        if (string.IsNullOrWhiteSpace(targetFile))
+        {
+            throw new ArgumentException("Value cannot be null, empty, or consist only of white-space characters.", nameof(targetFile));
+        }
+#endif
 
         using var stream = GetResourceStream(file, assembly);
         using var target = File.Create(targetFile);

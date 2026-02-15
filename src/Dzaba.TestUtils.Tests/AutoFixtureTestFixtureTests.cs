@@ -41,8 +41,6 @@ public class AutoFixtureTestFixtureTests : AutoFixtureTestFixture
 
         public MyService(IMyDependency dependency)
         {
-            ArgumentNullException.ThrowIfNull(dependency);
-
             this.dependency = dependency;
         }
 

@@ -18,7 +18,14 @@ public static class TestExtensions
     public static Mock<T> FreezeMock<T>(this IFixture fixture)
         where T : class
     {
+#if NET8_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(fixture);
+#else
+        if (fixture == null)
+        {
+            throw new ArgumentNullException(nameof(fixture));
+        }
+#endif
 
         return fixture.Freeze<Mock<T>>();
     }
