@@ -1,7 +1,6 @@
 ﻿using Dzaba.TestUtils;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using Serilog;
 using System;
 
 namespace Dzaba.IntegrationTestUtils;
@@ -26,12 +25,7 @@ public abstract class IocTestFixture : TempTestFixture
     public void SetupContainer()
     {
         var services = new ServiceCollection();
-
-        var logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .WriteTo.Console(outputTemplate: "{Timestamp:dd.MM.yyyy HH:mm:ss} [{SourceContext}] [{ThreadId}] [{Level:u3}] - {Message:lj}{NewLine}{Exception}")
-            .CreateLogger();
-        services.AddLogging(l => l.AddSerilog(logger, true));
+        services.AddSerilogConsoleLogging();
 
         RegisterServices(services);
 
