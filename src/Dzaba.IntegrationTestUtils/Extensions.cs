@@ -27,6 +27,7 @@ public static class Extensions
 #endif
 
         var logger = new LoggerConfiguration()
+            .Enrich.WithThreadId()
             .MinimumLevel.Debug()
             .WriteTo.Console(outputTemplate: "{Timestamp:dd.MM.yyyy HH:mm:ss} [{SourceContext}] [{ThreadId}] [{Level:u3}] - {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
