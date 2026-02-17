@@ -6,9 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Dzaba.AspNetUtils.ActionFilters;
 
+/// <summary>
+/// Handles exceptions that occur during the execution of an action method or controller, providing appropriate
+/// responses based on the type of exception.
+/// </summary>
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
 public class HandleErrorsAttribute : ActionFilterAttribute, IExceptionFilter
 {
+    /// <inheritdoc/>
     public void OnException(ExceptionContext context)
     {
         var container = context.HttpContext.RequestServices;
