@@ -9,20 +9,25 @@ public static class ConfigurationExtensions
     public static void RegisterDzabaSettings<T>(this IServiceCollection services, string sectionName)
         where T : class
     {
-        Require.NotNull(services, nameof(services));
-        Require.NotWhiteSpace(sectionName, nameof(sectionName));
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentException.ThrowIfNullOrWhiteSpace(sectionName);
 
         services.AddTransient<T>(p =>
         {
             var config = p.GetRequiredService<IConfiguration>();
             var section = config.GetSection(sectionName);
+            if (!section.Exists())
+            {
+                throw new InvalidOperationException($"Section '{sectionName}' is not defined.");
+            }
             return section.Get<T>();
         });
     }
 
     public static void RegisterDzabaConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        Require.NotNull(configuration, nameof(configuration));
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configuration);
 
         services.AddSingleton<IConfiguration>(configuration);
     }
@@ -30,7 +35,8 @@ public static class ConfigurationExtensions
     public static void RegisterDzabaConfiguration(this IServiceCollection services, Func<IServiceProvider, IConfiguration> configurationBuilder,
         bool singleton = false)
     {
-        Require.NotNull(configurationBuilder, nameof(configurationBuilder));
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configurationBuilder);
 
         if (singleton)
         {
