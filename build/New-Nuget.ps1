@@ -2,7 +2,7 @@
 param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrWhiteSpace()]
-    [ValidateSet("Dzaba.AspNetUtils", "Dzaba.IntegrationTestUtils", "Dzaba.TestUtils", "Dzaba.Utils", "Dzaba.Utils.Configuration")]
+    [ValidateSet("Dzaba.Utils.AspNet", "Dzaba.TestUtils.Integration", "Dzaba.TestUtils.Integration.AspNet", "Dzaba.TestUtils", "Dzaba.Utils", "Dzaba.Utils.Configuration")]
     [string]$PackageName,
 
     [Parameter()]
@@ -57,8 +57,8 @@ function Get-LatestNugetVersion {
         
     }
     catch {
-        Write-Error "Failed to get latest version for $PackageName" -ErrorAction Continue
-        throw
+        Write-Warning "Failed to get latest version for $PackageName"
+        return "0.0.0"
     }
 }
 
