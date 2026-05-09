@@ -13,29 +13,14 @@
 		<LangVersion>14.0</LangVersion>
 	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.7" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.15" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.15" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net48'">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
-  </ItemGroup>
-
   <ItemGroup>
-	  <PackageReference Include="Serilog" Version="4.3.1" />
-	  <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
-	  <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
-	</ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Enrichers.Thread" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+  </ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Dzaba.TestUtils\Dzaba.TestUtils.csproj" PackageVersion="[2.0,3.0)" />
