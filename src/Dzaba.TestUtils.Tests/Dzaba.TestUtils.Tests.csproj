@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Dzaba.IntegrationTestUtils\Dzaba.IntegrationTestUtils.csproj" />
+	  <ProjectReference Include="..\Dzaba.TestUtils.Integration\Dzaba.TestUtils.Integration.csproj" />
 	  <ProjectReference Include="..\Dzaba.TestUtils\Dzaba.TestUtils.csproj" />
 	</ItemGroup>
 

@@ -4,7 +4,7 @@
     <File Path="Directory.Packages.props" />
   </Folder>
   <Project Path="src/Dzaba.TestUtils.Integration.AspNet/Dzaba.TestUtils.Integration.AspNet.csproj" />
-  <Project Path="src/Dzaba.AspNetUtils/Dzaba.AspNetUtils.csproj" />
+  <Project Path="src/Dzaba.Utils.AspNet/Dzaba.Utils.AspNet.csproj" />
   <Project Path="src/Dzaba.TestUtils.Integration/Dzaba.TestUtils.Integration.csproj" />
   <Project Path="src/Dzaba.TestUtils.Tests/Dzaba.TestUtils.Tests.csproj" />
   <Project Path="src/Dzaba.TestUtils/Dzaba.TestUtils.csproj" />

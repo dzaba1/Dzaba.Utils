@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dzaba.IntegrationTestUtils\Dzaba.IntegrationTestUtils.csproj" PackageVersion="[1.0,2.0)" />
+    <ProjectReference Include="..\Dzaba.TestUtils.Integration\Dzaba.TestUtils.Integration.csproj" PackageVersion="[1.0,2.0)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">

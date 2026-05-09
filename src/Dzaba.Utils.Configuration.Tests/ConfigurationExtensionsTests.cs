@@ -21,11 +21,11 @@ public class ConfigurationExtensionsTests
     }
 
     [Test]
-    public void RegisterDzabaConfiguration_WhenConfigurationObject_ThenSingleton()
+    public void AddConfiguration_WhenConfigurationObject_ThenSingleton()
     {
         var services = new ServiceCollection();
         var config = CreateConfiguration();
-        services.RegisterDzabaConfiguration(config);
+        services.AddConfiguration(config);
 
         using var provider = services.BuildServiceProvider();
         var configuration1 = provider.GetRequiredService<IConfiguration>();
@@ -34,10 +34,10 @@ public class ConfigurationExtensionsTests
     }
 
     [Test]
-    public void RegisterDzabaConfiguration_WhenConfigurationBuilderAsSingleton_ThenSingleton()
+    public void AddConfiguration_WhenConfigurationBuilderAsSingleton_ThenSingleton()
     {
         var services = new ServiceCollection();
-        services.RegisterDzabaConfiguration(p => CreateConfiguration(), true);
+        services.AddConfiguration(p => CreateConfiguration(), true);
 
         using var provider = services.BuildServiceProvider();
         var configuration1 = provider.GetRequiredService<IConfiguration>();
@@ -46,10 +46,10 @@ public class ConfigurationExtensionsTests
     }
 
     [Test]
-    public void RegisterDzabaConfiguration_WhenConfigurationBuilderAsTransient_ThenNewServices()
+    public void AddConfiguration_WhenConfigurationBuilderAsTransient_ThenNewServices()
     {
         var services = new ServiceCollection();
-        services.RegisterDzabaConfiguration(p => CreateConfiguration());
+        services.AddConfiguration(p => CreateConfiguration());
 
         using var provider = services.BuildServiceProvider();
         var configuration1 = provider.GetRequiredService<IConfiguration>();
@@ -58,12 +58,12 @@ public class ConfigurationExtensionsTests
     }
 
     [Test]
-    public void RegisterDzabaSettings_WhenSectionExists_ThenModel()
+    public void AddSettings_WhenSectionExists_ThenModel()
     {
         var services = new ServiceCollection();
         var config = CreateConfiguration();
-        services.RegisterDzabaConfiguration(config);
-        services.RegisterDzabaSettings<TestSettings>("Data");
+        services.AddConfiguration(config);
+        services.AddSettings<TestSettings>("Data");
 
         using var provider = services.BuildServiceProvider();
         var settings = provider.GetRequiredService<TestSettings>();

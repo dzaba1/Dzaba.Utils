@@ -1,4 +1,4 @@
-﻿using Dzaba.IntegrationTestUtils;
+﻿using Dzaba.TestUtils.Integration;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -8,7 +8,7 @@ namespace Dzaba.TestUtils.Tests;
 [TestFixture]
 public class IocTestFixtureTests : IocTestFixture
 {
-    protected override void RegisterServices(ServiceCollection services)
+    protected override void RegisterServices(IServiceCollection services)
     {
         services.AddTransient<IMyService, MyService>();
     }
