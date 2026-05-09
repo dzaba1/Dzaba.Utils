@@ -38,7 +38,8 @@ function Get-LatestNugetVersion {
         $versions = @($response.versions | Where-Object { $_ -match '^\d' })  # Filter to numeric versions only
         
         if ($versions.Count -eq 0) {
-            throw "No versions found for package: $PackageName"
+            Write-Warning "No versions found for package: $PackageName"
+            return "0.0.0"
         }
         
         # Sort versions in descending order (newest first)

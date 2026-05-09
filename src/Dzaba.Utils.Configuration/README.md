@@ -5,9 +5,9 @@ Utilities for Microsoft.Extensions.Configuration and DI
 ## Usage
 
 ```
-services.RegisterDzabaConfiguration(Configuration);
+services.AddConfiguration(Configuration);
 
-services.RegisterDzabaConfiguration(c =>
+services.AddConfiguration(c =>
 {
     var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
     return new ConfigurationBuilder()
@@ -15,5 +15,9 @@ services.RegisterDzabaConfiguration(c =>
         .Build();
 });
 
-services.RegisterDzabaSettings<MySettings>("mySettingsSection");
+services.AddJsonFileConfiguration();
+
+services.AddInMemoryConfiguration(new KeyValuePair<string,string>("MySection:MyValue", "MyValue));
+
+services.AddSettings<MySettings>("mySettingsSection");
 ```
