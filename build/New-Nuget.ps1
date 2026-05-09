@@ -76,13 +76,13 @@ try {
     }
 
     if ($UpgradeMajor) {
-        $nextVersion = @(($versionArray[0] + 1), $versionArray[1], $versionArray[2])
+        $nextVersion = @(($versionArray[0] + 1), 0, 0)
     }
     elseif ($UpgradeBuild) {
         $nextVersion = @($versionArray[0], $versionArray[1], ($versionArray[2] + 1))
     }
     else {
-        $nextVersion = @($versionArray[0], ($versionArray[1] + 1), $versionArray[2])
+        $nextVersion = @($versionArray[0], ($versionArray[1] + 1), 0)
     }
 
     $nextVersionJoined = $nextVersion -join "."

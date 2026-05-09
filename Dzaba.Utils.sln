@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dzaba.IntegrationTestUtils"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dzaba.AspNetUtils", "src\Dzaba.AspNetUtils\Dzaba.AspNetUtils.csproj", "{68DC30AB-120E-49DF-95C2-51FB5725707F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dzaba.AspNetIntegrationTestUtils", "src\Dzaba.AspNetIntegrationTestUtils\Dzaba.AspNetIntegrationTestUtils.csproj", "{D413C7AE-2AFA-4D29-BC63-5912BD404CED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{68DC30AB-120E-49DF-95C2-51FB5725707F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68DC30AB-120E-49DF-95C2-51FB5725707F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68DC30AB-120E-49DF-95C2-51FB5725707F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D413C7AE-2AFA-4D29-BC63-5912BD404CED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D413C7AE-2AFA-4D29-BC63-5912BD404CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D413C7AE-2AFA-4D29-BC63-5912BD404CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D413C7AE-2AFA-4D29-BC63-5912BD404CED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
