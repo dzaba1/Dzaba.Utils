@@ -2,7 +2,7 @@
 using Serilog;
 using System;
 
-namespace Dzaba.IntegrationTestUtils;
+namespace Dzaba.TestUtils.Integration;
 
 /// <summary>
 /// Integration tests related extension methods.

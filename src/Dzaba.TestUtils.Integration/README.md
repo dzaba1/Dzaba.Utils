@@ -1,4 +1,4 @@
-# Dzaba.IntegrationTestUtils
+# Dzaba.TestUtils.Integration
 
 Utilities for integration tests.
 

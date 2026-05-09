@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="src/Dzaba.AspNetIntegrationTestUtils/Dzaba.AspNetIntegrationTestUtils.csproj" />
+  <Project Path="src/Dzaba.AspNetUtils/Dzaba.AspNetUtils.csproj" />
+  <Project Path="src/Dzaba.IntegrationTestUtils/Dzaba.IntegrationTestUtils.csproj" />
+  <Project Path="src/Dzaba.TestUtils.Tests/Dzaba.TestUtils.Tests.csproj" />
+  <Project Path="src/Dzaba.TestUtils/Dzaba.TestUtils.csproj" />
+  <Project Path="src/Dzaba.Utils.Configuration.Tests/Dzaba.Utils.Configuration.Tests.csproj" />
+  <Project Path="src/Dzaba.Utils.Configuration/Dzaba.Utils.Configuration.csproj" />
+  <Project Path="src/Dzaba.Utils.Tests/Dzaba.Utils.Tests.csproj" />
+  <Project Path="src/Dzaba.Utils/Dzaba.Utils.csproj" />
+</Solution>

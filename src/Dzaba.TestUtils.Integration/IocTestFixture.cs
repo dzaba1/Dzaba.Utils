@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
 
-namespace Dzaba.IntegrationTestUtils;
+namespace Dzaba.TestUtils.Integration;
 
 /// <summary>
 /// Provides an abstract base class for integration tests that require a dependency injection container with logging
@@ -35,7 +35,7 @@ public abstract class IocTestFixture : TempTestFixture
     /// <summary>
     /// Registers application services with the specified service collection.
     /// </summary>
-    protected abstract void RegisterServices(ServiceCollection services);
+    protected abstract void RegisterServices(IServiceCollection services);
 
     /// <summary>
     /// Releases resources held by the container after each test execution.
