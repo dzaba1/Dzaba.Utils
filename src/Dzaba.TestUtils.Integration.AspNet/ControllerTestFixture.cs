@@ -14,6 +14,11 @@ public abstract class ControllerTestFixture<T> : TempTestFixture
     where T : class
 {
     /// <summary>
+    /// The mocked JWT settings used in tests
+    /// </summary>
+    protected JwtMockedSettings JwtSettings { get; } = new JwtMockedSettings();
+
+    /// <summary>
     /// The <see cref="WebApplicationFactory{T}"/> used to create test clients and scopes. Configured in <see cref="SetupFactory"/> and disposed in <see cref="CleanupFactory"/>.
     /// </summary>
     protected WebApplicationFactory<T> Factory { get; private set; }
