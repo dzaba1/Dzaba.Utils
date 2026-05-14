@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dzaba.TestUtils.Integration\Dzaba.TestUtils.Integration.csproj" PackageVersion="[1.0,2.0)" />
-    <ProjectReference Include="..\Dzaba.Utils.AspNet\Dzaba.Utils.AspNet.csproj" PackageVersion="[1.0,2.0)" />
+    <ProjectReference Include="..\Dzaba.TestUtils.Integration\Dzaba.TestUtils.Integration.csproj" PackageVersion="[1.1,2.0)" />
+    <ProjectReference Include="..\Dzaba.Utils.AspNet\Dzaba.Utils.AspNet.csproj" PackageVersion="[1.1,2.0)" />
   </ItemGroup>
 
   <ItemGroup>
