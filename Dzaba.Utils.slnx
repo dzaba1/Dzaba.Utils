@@ -3,6 +3,7 @@
     <File Path=".github/workflows/dotnet.yml" />
     <File Path="Directory.Packages.props" />
   </Folder>
+  <Project Path="src/Dzaba.ExampleService.Tests/Dzaba.ExampleService.Tests.csproj" Id="c16a6630-dec5-4521-a91c-9f2e2316ba6d" />
   <Project Path="src/Dzaba.ExampleService/Dzaba.ExampleService.csproj" Id="f83dce1a-1019-49aa-ac35-65167732c8ef" />
   <Project Path="src/Dzaba.TestUtils.Integration.AspNet/Dzaba.TestUtils.Integration.AspNet.csproj" />
   <Project Path="src/Dzaba.Utils.AspNet/Dzaba.Utils.AspNet.csproj" />

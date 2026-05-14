@@ -15,7 +15,7 @@ public class JwtMockedSettings
     public JwtSettings Settings { get; } = new JwtSettings
     {
         Authority = "http://test",
-        Audience = "home-security",
+        Audience = "test-audience",
         IssuerSigningKey = "a-string-secret-at-least-256-bits-long",
         ValidateAudience = false,
         ValidateIssuer = false

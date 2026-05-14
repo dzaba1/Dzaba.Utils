@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
+using Serilog;
 
 namespace Dzaba.TestUtils.Integration.AspNet;
 
@@ -13,6 +15,11 @@ namespace Dzaba.TestUtils.Integration.AspNet;
 public abstract class ControllerTestFixture<T> : TempTestFixture
     where T : class
 {
+    /// <summary>
+    /// Gets a value that indicates whether the host clears existing logging providers when configuring logging.
+    /// </summary>
+    protected virtual bool ClearLoggingProviders { get; } = false;
+
     /// <summary>
     /// The mocked JWT settings used in tests
     /// </summary>
@@ -55,7 +62,15 @@ public abstract class ControllerTestFixture<T> : TempTestFixture
             })
             .ConfigureTestServices(services =>
             {
-                services.AddSerilogConsoleLogging();
+                services.AddLogging(l =>
+                {
+                    if (ClearLoggingProviders)
+                    {
+                        l.ClearProviders();
+                    }
+                    var logger = TestLogging.CreateSerilogLogger();
+                    l.AddSerilog(logger, true);
+                });
 
                 OnConfigureServices(services);
             });
