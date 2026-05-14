@@ -1,8 +1,10 @@
+using Dzaba.Utils.AspNet;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Serilog;
@@ -123,5 +125,30 @@ public abstract class ControllerTestFixture<T> : TempTestFixture
             .Should().NotThrow(respStr);
 
         return respStr;
+    }
+
+    /// <summary>
+    /// Sends the HTTP request using the provided client and asserts that the response is successful (status code 2xx).
+    /// Reads the response content as a string and returns it. Throws an assertion failure if the response is not successful,
+    /// including the response content in the exception message for easier debugging.
+    /// </summary>
+    /// <param name="client">The HTTP client to use for the request.</param>
+    /// <param name="request">The HTTP request to send.</param>
+    /// <returns>The response content as a string.</returns>
+    protected async Task<string> InvokeAndAssertAsync(HttpClient client, HttpRequestMessage request)
+    {
+        var resp = await client.SendAsync(request).ConfigureAwait(false);
+        return await AssertAsync(resp).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Adds mocked JWT settings to the service collection by removing any existing JwtSettings and registering the
+    /// current instance of JwtSettings as a singleton. This is used in tests that require mocked JWT configuration.
+    /// </summary>
+    /// <param name="services">The service collection to configure.</param>
+    protected void AddMockedJwtSettings(IServiceCollection services)
+    {
+        services.RemoveAll<JwtSettings>();
+        services.AddSingleton<JwtSettings>(JwtSettings.Settings);
     }
 }

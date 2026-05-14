@@ -1,6 +1,8 @@
 ﻿using Dzaba.TestUtils.Integration.AspNet;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace Dzaba.ExampleService.Tests.Integration;
@@ -8,6 +10,11 @@ namespace Dzaba.ExampleService.Tests.Integration;
 [TestFixture]
 public class JwtControllerTests : ControllerTestFixture<Program>
 {
+    protected override void OnConfigureServices(IServiceCollection services)
+    {
+        AddMockedJwtSettings(services);
+    }
+
     private async Task<string> CreateTokenAsync(HttpClient client)
     {
         var body = new JwtTokenToCreate()
@@ -21,8 +28,7 @@ public class JwtControllerTests : ControllerTestFixture<Program>
             Content = JsonContent.Create(body),
         };
 
-        var resp = await client.SendAsync(request).ConfigureAwait(false);
-        return await AssertAsync(resp).ConfigureAwait(false);
+        return await InvokeAndAssertAsync(client, request).ConfigureAwait(false);
     }
 
     [Test]
@@ -32,5 +38,18 @@ public class JwtControllerTests : ControllerTestFixture<Program>
 
         var result = await CreateTokenAsync(client);
         result.Should().NotBeNull();
+    }
+
+    [Test]
+    public async Task CheckTestRole_WhenRoleCorrect_ThenOk()
+    {
+        var client = CreateClient();
+
+        var token = await CreateTokenAsync(client);
+        using var request = new HttpRequestMessage(HttpMethod.Get, "jwt/check/testRole");
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        var result = await InvokeAndAssertAsync(client, request).ConfigureAwait(false);
+        result.Should().Be("true");
     }
 }
