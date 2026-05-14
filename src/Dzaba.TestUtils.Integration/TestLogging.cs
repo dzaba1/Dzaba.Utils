@@ -40,6 +40,7 @@ public static class TestLogging
 
         configuration.Enrich.WithThreadId()
             .MinimumLevel.Debug()
+            .WriteTo.Debug()
             .WriteTo.Console(outputTemplate: "{Timestamp:dd.MM.yyyy HH:mm:ss} [{SourceContext}] [{ThreadId}] [{Level:u3}] - {Message:lj}{NewLine}{Exception}");
     }
 }
