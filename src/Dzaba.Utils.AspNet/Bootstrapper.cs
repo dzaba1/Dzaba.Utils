@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Dzaba.Utils.AspNet.Hal;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Text;
 namespace Dzaba.Utils.AspNet;
 
 /// <summary>
-/// Provides static extension methods for configuring JWT authentication settings.
+/// Provides static extension methods for registering JWT authentication and the library's services.
 /// </summary>
 public static class Bootstrapper
 {
@@ -74,6 +75,20 @@ public static class Bootstrapper
                 jwtOptions.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.IssuerSigningKey));
             }
         });
+
+        return services;
+    }
+
+    /// <summary>
+    /// Registers the services provided by this library, such as the HAL link factory.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>The service collection for chaining.</returns>
+    public static IServiceCollection AddDzabaAspNetServices(this IServiceCollection services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.AddTransient<ILinkFactory, LinkFactory>();
 
         return services;
     }

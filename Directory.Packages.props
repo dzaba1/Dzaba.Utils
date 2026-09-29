@@ -59,9 +59,14 @@
 
   <PropertyGroup>
     <Authors>dzaba1</Authors>
+    <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/dzaba1/Dzaba.Utils</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <WarningsAsErrors>CS1591</WarningsAsErrors>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <Target Name="UseExplicitPackageVersions" BeforeTargets="GenerateNuspec">
