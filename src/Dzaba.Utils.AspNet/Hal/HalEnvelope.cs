@@ -16,7 +16,7 @@ public static class HalEnvelope
     /// <param name="links">The links keyed by relation name.</param>
     /// <param name="options">The serializer options.</param>
     /// <returns>The resource as a JSON object with the <c>_links</c> property.</returns>
-    public static JsonObject Wrap<T>(T resource, IReadOnlyDictionary<string, HalLink> links, JsonSerializerOptions options)
+    public static JsonObject Wrap<T>(T resource, HalLinks links, JsonSerializerOptions options)
     {
         ArgumentNullException.ThrowIfNull(resource);
         ArgumentNullException.ThrowIfNull(links);
@@ -38,8 +38,8 @@ public static class HalEnvelope
     /// <param name="itemLinks">Optional factory of per-item links. When omitted, items are embedded without <c>_links</c>.</param>
     /// <returns>The collection as a JSON object.</returns>
     public static JsonObject WrapCollection<T>(string embeddedKey, IEnumerable<T> items,
-        IReadOnlyDictionary<string, HalLink> links, JsonSerializerOptions options,
-        Func<T, IReadOnlyDictionary<string, HalLink>> itemLinks = null)
+        HalLinks links, JsonSerializerOptions options,
+        Func<T, HalLinks> itemLinks = null)
     {
         ArgumentException.ThrowIfNullOrEmpty(embeddedKey);
         ArgumentNullException.ThrowIfNull(items);

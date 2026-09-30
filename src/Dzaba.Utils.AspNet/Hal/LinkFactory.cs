@@ -17,7 +17,9 @@ internal sealed class LinkFactory : ILinkFactory
         this.linkGenerator = linkGenerator;
     }
 
-    public HalLink Build(HttpContext httpContext, string action, string controller, object routeValues = null, string method = null)
+    public HalLink Build(HttpContext httpContext,
+        string action, string controller,
+        object routeValues = null, HttpMethod method = null)
     {
         ArgumentNullException.ThrowIfNull(httpContext);
         ArgumentException.ThrowIfNullOrEmpty(action);
@@ -26,6 +28,6 @@ internal sealed class LinkFactory : ILinkFactory
         var path = linkGenerator.GetPathByAction(httpContext, action, controller, routeValues)
             ?? throw new InvalidOperationException($"Could not build a link for {controller}.{action}.");
 
-        return new HalLink(path, method);
+        return new HalLink(path, method?.Method);
     }
 }

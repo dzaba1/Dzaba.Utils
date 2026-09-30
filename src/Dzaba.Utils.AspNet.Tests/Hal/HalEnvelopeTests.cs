@@ -12,8 +12,8 @@ public class HalEnvelopeTests
 
     private static readonly JsonSerializerOptions Options = new(JsonSerializerDefaults.Web);
 
-    private static IReadOnlyDictionary<string, HalLink> Links(string href) =>
-        new Dictionary<string, HalLink> { ["self"] = new HalLink(href) };
+    private static HalLinks Links(string href) =>
+        new() { Self = [new HalLink(href)] };
 
     [Test]
     public void Wrap_WhenResource_ThenResourcePropertiesAndLinks()
@@ -28,7 +28,7 @@ public class HalEnvelopeTests
     [Test]
     public void Wrap_WhenLinkWithMethod_ThenMethodSerialized()
     {
-        var links = new Dictionary<string, HalLink> { ["delete"] = new HalLink("/items/1", "DELETE") };
+        var links = new HalLinks { Delete = [new HalLink("/items/1", "DELETE")] };
 
         var result = HalEnvelope.Wrap(new Item(1, "One"), links, Options);
 

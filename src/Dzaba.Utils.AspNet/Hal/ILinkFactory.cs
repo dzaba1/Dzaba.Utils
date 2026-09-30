@@ -16,5 +16,7 @@ public interface ILinkFactory
     /// <param name="routeValues">Optional route values used to generate the URL.</param>
     /// <param name="method">The optional HTTP method to advertise in the link.</param>
     /// <returns>The built link.</returns>
-    HalLink Build(HttpContext httpContext, string action, string controller, object routeValues = null, string method = null);
+    HalLink Build(HttpContext httpContext,
+        string action, string controller,
+        object routeValues = null, HttpMethod method = null);
 }

@@ -45,7 +45,7 @@ public class LinkFactoryTests : AutoFixtureTestFixture
     [Test]
     public void Build_WhenPathGenerated_ThenLinkWithPathAndMethod()
     {
-        var link = CreateSut().Build(httpContext, "Get", "Items", new { id = 5 }, "GET");
+        var link = CreateSut().Build(httpContext, "Get", "Items", new { id = 5 }, HttpMethod.Get);
 
         link.Should().Be(new HalLink("/api/items/5", "GET"));
     }
