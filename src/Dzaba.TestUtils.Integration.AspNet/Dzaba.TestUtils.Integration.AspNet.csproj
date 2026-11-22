@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>Utilities for ASP.NET integration tests.</Description>
     <PackageTags>testing;integration-tests;aspnetcore;webapplicationfactory</PackageTags>
   </PropertyGroup>

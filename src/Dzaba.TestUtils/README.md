@@ -55,6 +55,17 @@ public class MyServiceTests : AutoFixtureTestFixture
 }
 ```
 
+### Fixture options
+
+```csharp
+var fixture = TestFixture.Create(new TestFixtureOptions
+{
+    AutoMoqConfigureMembers = true,
+    RemoveThrowingRecursionBehavior = true,
+    AddOmitOnRecursionBehavior = true
+});
+```
+
 ### Embedded file
 
 ```csharp

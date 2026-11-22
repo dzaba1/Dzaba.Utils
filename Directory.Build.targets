@@ -4,8 +4,13 @@
     <LangVersion>15.0</LangVersion>
   </PropertyGroup>
 
+  <!-- GenerateDocumentationFile can't be centralized here: the SDK derives DocumentationFile from it before this file is imported,
+       so it has no effect. Each packable project sets it next to IsPackable, and this check keeps a new package from forgetting it. -->
+  <Target Name="EnsureDocumentationFile" BeforeTargets="CoreCompile" Condition="'$(IsPackable)' == 'true' AND '$(GenerateDocumentationFile)' != 'true'">
+    <Error Text="$(MSBuildProjectName) is packable but does not set GenerateDocumentationFile to true in its project file." />
+  </Target>
+
   <PropertyGroup Condition="'$(IsPackable)' == 'true'">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <EnablePackageValidation>true</EnablePackageValidation>
   </PropertyGroup>
