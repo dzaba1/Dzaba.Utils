@@ -1,16 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net9.0;net10.0;net48</TargetFrameworks>
-		<LangVersion>latest</LangVersion>
+		<TargetFrameworks>net8.0;net9.0;net10.0;net11.0;net48</TargetFrameworks>
 		<Description>Utilities for integration tests.</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Nullable>disable</Nullable>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
-		<LangVersion>14.0</LangVersion>
 	</PropertyGroup>
 
   <ItemGroup>
