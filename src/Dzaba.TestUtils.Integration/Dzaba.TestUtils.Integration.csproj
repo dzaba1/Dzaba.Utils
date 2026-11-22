@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dzaba.TestUtils\Dzaba.TestUtils.csproj" PackageVersion="[2.0,3.0)" />
+    <ProjectReference Include="..\Dzaba.TestUtils\Dzaba.TestUtils.csproj" PackageVersion="[2.1,3.0)" />
   </ItemGroup>
 
 </Project>
