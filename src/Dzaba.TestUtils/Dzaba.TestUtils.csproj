@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0;net10.0;net11.0;net48</TargetFrameworks>
-    <Description>Utilities for unit tests.</Description>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>disable</Nullable>
+    <IsPackable>true</IsPackable>
+    <Description>Utilities for unit tests.</Description>
+    <PackageTags>testing;unit-tests;nunit;autofixture;moq</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,13 +13,6 @@
     <PackageReference Include="AutoFixture.AutoMoq" />
     <PackageReference Include="Moq" />
     <PackageReference Include="NUnit" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

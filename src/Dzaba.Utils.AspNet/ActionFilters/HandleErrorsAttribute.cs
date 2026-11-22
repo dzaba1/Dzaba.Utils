@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Dzaba.AspNetUtils.ActionFilters;
+namespace Dzaba.Utils.AspNet.ActionFilters;
 
 /// <summary>
 /// Handles exceptions that occur during the execution of an action method or controller, providing appropriate

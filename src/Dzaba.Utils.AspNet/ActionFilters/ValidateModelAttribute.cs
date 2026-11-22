@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Dzaba.AspNetUtils.ActionFilters;
+namespace Dzaba.Utils.AspNet.ActionFilters;
 
 /// <summary>
 /// An action filter attribute that validates the model state before an action method executes, returning a bad request

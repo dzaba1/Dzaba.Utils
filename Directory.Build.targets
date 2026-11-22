@@ -1,6 +1,38 @@
 <Project>
-  <!-- Imported after the project body, so $(TargetFramework) is known here even for single-target projects. -->
+  <!-- Imported after the project body, so $(TargetFramework) and $(IsPackable) are known here even for single-target projects. -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'netstandard2.0'">
     <LangVersion>15.0</LangVersion>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <EnablePackageValidation>true</EnablePackageValidation>
+  </PropertyGroup>
+
+  <!-- New-Nuget.ps1 passes the baseline as global properties, which also reach referenced projects; apply it only to the project being packed. -->
+  <PropertyGroup Condition="'$(IsPackable)' == 'true' AND '$(ValidationBaselineProject)' == '$(MSBuildProjectName)'">
+    <PackageValidationBaselineVersion>$(ValidationBaselineVersion)</PackageValidationBaselineVersion>
+  </PropertyGroup>
+
+  <!-- Include, not Update: this file is evaluated before the SDK's default None glob, so there is nothing to update yet. -->
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- NuGet has no supported way to set the dependency range of a ProjectReference; this rewrites the internal item before the nuspec is generated. -->
+  <Target Name="UseExplicitPackageVersions" BeforeTargets="GenerateNuspec">
+    <ItemGroup>
+      <_ProjectReferenceWithExplicitPackageVersion Include="@(ProjectReference->'%(FullPath)')" Condition="'%(ProjectReference.PackageVersion)' != ''" />
+      <_ProjectReferenceWithExactPackageVersion Include="@(ProjectReference->'%(FullPath)')" Condition="'%(ProjectReference.ExactVersion)' == 'true'" />
+      <_ProjectReferenceWithReassignedVersion Include="@(_ProjectReferencesWithVersions)" Condition="'%(Identity)' != '' And '@(_ProjectReferenceWithExplicitPackageVersion)' == '@(_ProjectReferencesWithVersions)'">
+        <ProjectVersion>@(_ProjectReferenceWithExplicitPackageVersion->'%(PackageVersion)')</ProjectVersion>
+      </_ProjectReferenceWithReassignedVersion>
+      <_ProjectReferenceWithReassignedVersion Include="@(_ProjectReferencesWithVersions)" Condition="'%(Identity)' != '' And '@(_ProjectReferenceWithExactPackageVersion)' == '@(_ProjectReferencesWithVersions)'">
+        <ProjectVersion>[@(_ProjectReferencesWithVersions->'%(ProjectVersion)')]</ProjectVersion>
+      </_ProjectReferenceWithReassignedVersion>
+      <_ProjectReferencesWithVersions Remove="@(_ProjectReferenceWithReassignedVersion)" />
+      <_ProjectReferencesWithVersions Include="@(_ProjectReferenceWithReassignedVersion)" />
+    </ItemGroup>
+  </Target>
 </Project>

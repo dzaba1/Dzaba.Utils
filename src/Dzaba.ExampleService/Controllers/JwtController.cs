@@ -1,6 +1,5 @@
-﻿using Dzaba.AspNetUtils;
-using Dzaba.AspNetUtils.ActionFilters;
-using Dzaba.Utils.AspNet;
+﻿using Dzaba.Utils.AspNet;
+using Dzaba.Utils.AspNet.ActionFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

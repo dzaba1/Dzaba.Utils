@@ -1,4 +1,4 @@
-﻿namespace Dzaba.AspNetUtils;
+﻿namespace Dzaba.Utils.AspNet;
 
 /// <summary>
 /// Represents an exception that is thrown when model validation fails and one or more validation errors are

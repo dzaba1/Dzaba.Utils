@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 
-namespace Dzaba.AspNetUtils;
+namespace Dzaba.Utils.AspNet;
 
 /// <summary>
 /// Represents an exception that is thrown to indicate an error response from an HTTP request, including the associated

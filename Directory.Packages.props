@@ -6,7 +6,6 @@
     <PackageVersion Include="AutoFixture" Version="4.18.1" />
     <PackageVersion Include="AutoFixture.AutoMoq" Version="4.18.1" />
     <PackageVersion Include="FluentAssertions" Version="7.2.2" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.14" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
     <PackageVersion Include="Moq" Version="4.21.0" />
     <PackageVersion Include="NUnit" Version="5.0.0" />
@@ -72,31 +71,4 @@
     <PackageVersion Include="Serilog.Extensions.Logging" Version="8.0.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="8.1.4" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <Authors>dzaba1</Authors>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/dzaba1/Dzaba.Utils</RepositoryUrl>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <WarningsAsErrors>CS1591</WarningsAsErrors>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
-
-  <Target Name="UseExplicitPackageVersions" BeforeTargets="GenerateNuspec">
-    <ItemGroup>
-      <_ProjectReferenceWithExplicitPackageVersion Include="@(ProjectReference->'%(FullPath)')" Condition="'%(ProjectReference.PackageVersion)' != ''" />
-      <_ProjectReferenceWithExactPackageVersion Include="@(ProjectReference->'%(FullPath)')" Condition="'%(ProjectReference.ExactVersion)' == 'true'" />
-      <_ProjectReferenceWithReassignedVersion Include="@(_ProjectReferencesWithVersions)" Condition="'%(Identity)' != '' And '@(_ProjectReferenceWithExplicitPackageVersion)' == '@(_ProjectReferencesWithVersions)'">
-        <ProjectVersion>@(_ProjectReferenceWithExplicitPackageVersion->'%(PackageVersion)')</ProjectVersion>
-      </_ProjectReferenceWithReassignedVersion>
-      <_ProjectReferenceWithReassignedVersion Include="@(_ProjectReferencesWithVersions)" Condition="'%(Identity)' != '' And '@(_ProjectReferenceWithExactPackageVersion)' == '@(_ProjectReferencesWithVersions)'">
-        <ProjectVersion>[@(_ProjectReferencesWithVersions->'%(ProjectVersion)')]</ProjectVersion>
-      </_ProjectReferenceWithReassignedVersion>
-      <_ProjectReferencesWithVersions Remove="@(_ProjectReferenceWithReassignedVersion)" />
-      <_ProjectReferencesWithVersions Include="@(_ProjectReferenceWithReassignedVersion)" />
-    </ItemGroup>
-  </Target>
 </Project>

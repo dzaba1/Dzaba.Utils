@@ -2,7 +2,7 @@
 param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrWhiteSpace()]
-    [ValidateSet("Dzaba.Utils.AspNet", "Dzaba.TestUtils.Integration", "Dzaba.TestUtils.Integration.AspNet", "Dzaba.TestUtils", "Dzaba.Utils", "Dzaba.Utils.Configuration")]
+    [ValidateSet("Dzaba.Utils.AspNet", "Dzaba.TestUtils.Integration", "Dzaba.TestUtils.Integration.AspNet", "Dzaba.TestUtils", "Dzaba.Utils.Configuration")]
     [string]$PackageName,
 
     [Parameter()]
@@ -16,50 +16,35 @@ param (
 )
 
 function Get-LatestNugetVersion {
-    [OutputType([string])]
+    [OutputType([version])]
     param (
         [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrWhiteSpace()] 
-        [string]$PackageName,
-
-        [Parameter()]
-        [switch]$PreRelease
+        [ValidateNotNullOrWhiteSpace()]
+        [string]$PackageName
     )
-    
-    $packageNameLower = $PackageName.ToLowerInvariant()
-    # NuGet.org API endpoint for package versions
-    $apiUrl = "https://api.nuget.org/v3-flatcontainer/$($packageNameLower)/index.json"
-    
+
+    $apiUrl = "https://api.nuget.org/v3-flatcontainer/$($PackageName.ToLowerInvariant())/index.json"
+
     try {
-        # Fetch available versions from NuGet.org
         $response = Invoke-RestMethod -Uri $apiUrl -Method Get -ErrorAction Stop
-        
-        # Get all version numbers from the response
-        $versions = @($response.versions | Where-Object { $_ -match '^\d' })  # Filter to numeric versions only
-        
-        if ($versions.Count -eq 0) {
-            Write-Warning "No versions found for package: $PackageName"
-            return "0.0.0"
-        }
-        
-        # Sort versions in descending order (newest first)
-        $versions = @($versions | Sort-Object -Descending)
-        
-        # If PreRelease switch is not checked, filter out pre-release versions
-        if (-not $PreRelease) {
-            $versions = @($versions | Where-Object { 
-                $_ -notmatch '-alpha|-beta|-preview|-rc|-canary'
-            })
-        }
-        
-        # Return the latest version
-        return $versions[0]
-        
     }
-    catch {
-        Write-Warning "Failed to get latest version for $PackageName"
-        return "0.0.0"
+    catch [Microsoft.PowerShell.Commands.HttpResponseException] {
+        if ($_.Exception.Response.StatusCode -eq [System.Net.HttpStatusCode]::NotFound) {
+            # Never published yet.
+            return $null
+        }
+        throw
     }
+
+    # Prerelease versions contain '-'. They never become the base for the next version.
+    # Compare as [version], not as strings: "1.10.0" must sort above "1.9.0".
+    $latest = @($response.versions) |
+        Where-Object { $_ -notmatch '-' } |
+        ForEach-Object { [version]$_ } |
+        Sort-Object |
+        Select-Object -Last 1
+
+    return $latest
 }
 
 $ErrorActionPreference = 'Stop'
@@ -67,34 +52,72 @@ $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
 $rootPath = Join-Path $scriptPath ".." -Resolve
 Push-Location $rootPath
 try {
-    $outputPath = Join-Path $rootPath "nugets"
-    $latestVersion = Get-LatestNugetVersion -PackageName $PackageName -PreRelease:$PreRelease
-    Write-Host "Latest version for $PackageName is: $latestVersion"
-
-    if (-not $PreRelease) {
-        $versionParsed = [version]$latestVersion
-        $versionArray = @($versionParsed.Major, $versionParsed.Minor, $versionParsed.Build)
+    $gitStatus = git status --porcelain
+    if ($LASTEXITCODE -ne 0) {
+        throw "git status failed with exit code $LASTEXITCODE."
+    }
+    if ($gitStatus) {
+        throw "The working tree has uncommitted changes. Commit or stash them before packing, so the package matches a commit.`n$($gitStatus -join "`n")"
     }
 
-    if ($UpgradeMajor) {
-        $nextVersion = @(($versionArray[0] + 1), 0, 0)
-    }
-    elseif ($UpgradeBuild) {
-        $nextVersion = @($versionArray[0], $versionArray[1], ($versionArray[2] + 1))
+    $latestVersion = Get-LatestNugetVersion -PackageName $PackageName
+    if ($null -eq $latestVersion) {
+        Write-Host "$PackageName is not published yet."
+        $nextVersion = [version]"1.0.0"
     }
     else {
-        $nextVersion = @($versionArray[0], ($versionArray[1] + 1), 0)
+        Write-Host "Latest stable version for $PackageName is: $latestVersion"
+        if ($UpgradeMajor) {
+            $nextVersion = [version]::new($latestVersion.Major + 1, 0, 0)
+        }
+        elseif ($UpgradeBuild) {
+            $nextVersion = [version]::new($latestVersion.Major, $latestVersion.Minor, $latestVersion.Build + 1)
+        }
+        else {
+            $nextVersion = [version]::new($latestVersion.Major, $latestVersion.Minor + 1, 0)
+        }
     }
 
-    $nextVersionJoined = $nextVersion -join "."
-    Write-Host "Next version for $PackageName is: $nextVersionJoined"
+    $nextVersionString = $nextVersion.ToString(3)
+    if ($PreRelease) {
+        $nextVersionString += "-preview.$((Get-Date).ToUniversalTime().ToString('yyyyMMddHHmm'))"
+    }
+    Write-Host "Next version for $PackageName is: $nextVersionString"
 
+    dotnet test -c Release
+    if ($LASTEXITCODE -ne 0) {
+        throw "Tests failed with exit code $LASTEXITCODE."
+    }
+
+    $outputPath = Join-Path $rootPath "nugets"
     if (-not (Test-Path $outputPath)) {
         New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
     }
 
     $projectPath = Join-Path $rootPath "src" $PackageName
-    dotnet pack $projectPath -o $outputPath -c Release /p:Version=$nextVersionJoined
+    $packArgs = @(
+        "pack", $projectPath,
+        "-o", $outputPath,
+        "-c", "Release",
+        "-p:Version=$nextVersionString",
+        "-p:ContinuousIntegrationBuild=true"
+    )
+    # A major bump is allowed to break the API, so only compare against the previous version otherwise.
+    if ($null -ne $latestVersion -and -not $UpgradeMajor) {
+        $packArgs += "-p:ValidationBaselineProject=$PackageName"
+        $packArgs += "-p:ValidationBaselineVersion=$($latestVersion.ToString(3))"
+    }
+
+    # Package validation is incremental and the baseline is not one of its inputs, so an earlier local pack would make it skip.
+    $validationSemaphore = Join-Path $projectPath "obj" "Release" "Microsoft.NET.ApiCompat.ValidatePackage.semaphore"
+    if (Test-Path $validationSemaphore) {
+        Remove-Item $validationSemaphore -Force
+    }
+
+    dotnet @packArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "dotnet pack failed with exit code $LASTEXITCODE."
+    }
 }
 finally {
     Pop-Location

@@ -1,4 +1,4 @@
-# Dzaba.AspNetUtils
+# Dzaba.Utils.AspNet
 
 Utilities for ASP.NET development.
 
@@ -6,7 +6,7 @@ Utilities for ASP.NET development.
 
 ### Action filters
 
-Namespace: `Dzaba.AspNetUtils.ActionFilters`. Both filters can be applied to a controller or a single action.
+Namespace: `Dzaba.Utils.AspNet.ActionFilters`. Both filters can be applied to a controller or a single action.
 
 - `[ValidateModel]` returns `400 Bad Request` with the model state when it is invalid, so you don't need to check `ModelState.IsValid` in every action.
 - `[HandleErrors]` turns two exceptions into HTTP responses (and logs them as warnings):
@@ -14,8 +14,8 @@ Namespace: `Dzaba.AspNetUtils.ActionFilters`. Both filters can be applied to a c
   - `HttpResponseException` becomes a response with the given status code and the exception message as the body.
 
 ```csharp
-using Dzaba.AspNetUtils;
-using Dzaba.AspNetUtils.ActionFilters;
+using Dzaba.Utils.AspNet;
+using Dzaba.Utils.AspNet.ActionFilters;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -114,7 +114,7 @@ Calling the same `AddX` method again adds another link to that relation, which i
 
 ### JWT Auth
 
-Namespace: `Dzaba.Utils.AspNet` (extensions are in `Dzaba.AspNetUtils`).
+Namespace: `Dzaba.Utils.AspNet`.
 
 Configure JWT bearer authentication from a `JwtSettings` object:
 

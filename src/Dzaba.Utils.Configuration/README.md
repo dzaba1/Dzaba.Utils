@@ -1,10 +1,10 @@
-# Dzaba.TestUtils
+# Dzaba.Utils.Configuration
 
 Utilities for Microsoft.Extensions.Configuration and DI
 
 ## Usage
 
-```
+```csharp
 services.AddConfiguration(Configuration);
 
 services.AddConfiguration(c =>
@@ -17,7 +17,7 @@ services.AddConfiguration(c =>
 
 services.AddJsonFileConfiguration();
 
-services.AddInMemoryConfiguration(new KeyValuePair<string,string>("MySection:MyValue", "MyValue));
+services.AddInMemoryConfiguration(new KeyValuePair<string, string>("MySection:MyValue", "MyValue"));
 
 services.AddSettings<MySettings>("mySettingsSection");
 ```

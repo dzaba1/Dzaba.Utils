@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <Authors>dzaba1</Authors>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/dzaba1/Dzaba.Utils</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <WarningsAsErrors>CS1591</WarningsAsErrors>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- Only the libraries opt in, so packing the solution never produces test or example packages. -->
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <!-- Deterministic paths in CI builds only; local builds keep real paths for debugging. New-Nuget.ps1 passes it explicitly when packing. -->
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+</Project>

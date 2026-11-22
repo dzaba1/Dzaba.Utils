@@ -2,7 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Dzaba.AspNetUtils;
+namespace Dzaba.Utils.AspNet;
 
 /// <summary>
 /// Provides extension helpers for ASP.NET Core HTTP context operations.
